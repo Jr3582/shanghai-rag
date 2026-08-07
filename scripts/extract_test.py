@@ -1,6 +1,7 @@
 import fitz
 import os
 import re
+import json
 
 data_folder = "../data"
 output_folder = "../data/extracted"
@@ -63,6 +64,8 @@ def chunk_by_sentences(text, max_chunk_size=500):
     chunks.append(current_chunk)
     return chunks
 
+data = [] #LIST OF DICTIONAIRIES
+
 # Go through every file in the data folder
 for filename in os.listdir(data_folder):
     if not filename.endswith("_TRIMMED.pdf"):
@@ -75,14 +78,26 @@ for filename in os.listdir(data_folder):
     for page in doc:
         full_text += page.get_text()
         full_text += "\n"  # small separator between pages
+    
+    cleaned_txt = clean_text(full_text)
 
-    chunks = chunk_by_sentences(full_text)
+    chunks = chunk_by_sentences(cleaned_txt)
+    for i, chunk in enumerate(chunks):
+        dictionary = {
+            "source": filename,
+            "chunk_id": i,
+            "text": chunk
+        }
+        data.append(dictionary)
+
     # Save the extracted text as a .txt file with a matching name
     output_name = filename.replace(".pdf", ".txt")
     output_path = os.path.join(output_folder, output_name)
 
-    cleaned_txt = clean_text(full_text)
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(cleaned_txt)
 
     print(f"Extracted {filename} -> {len(cleaned_txt)} characters, {len(doc)} pages")
+
+with open("../data/chunks.json", "w") as f:
+    json.dump(data, f, indent=2)
