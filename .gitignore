@@ -1,0 +1,15 @@
+# Environment variables
+.env
+
+# Virtual environment
+venv/
+
+# Vector database (regeneratable from scripts)
+data/chroma_db/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# macOS system files
+.DS_Store

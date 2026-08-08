@@ -1,0 +1,20 @@
+[
+  {"question": "When did the Battle of Shanghai begin?", "ground_truth": "13 August 1937"},
+  {"question": "When did the Battle of Shanghai officially end?", "ground_truth": "26 November 1937"},
+  {"question": "Which Chinese military force fought against the Imperial Japanese Army during the Battle of Shanghai?", "ground_truth": "National Revolutionary Army (NRA)"},
+  {"question": "Who was the commander-in-chief of the Japanese Shanghai Expeditionary Army during the battle?", "ground_truth": "General Iwane Matsui"},
+  {"question": "Which elite Chinese divisions, trained by German military advisors, played a major role in the battle?", "ground_truth": "87th Division and 88th Division"},
+  {"question": "Between which specific dates did the Defense of Sihang Warehouse take place?", "ground_truth": "26 October 1937 to 1 November 1937"},
+  {"question": "Who was the lieutenant colonel in command of the Chinese defenders at Sihang Warehouse?", "ground_truth": "Xie Jinyuan"},
+  {"question": "By what popular name were the defenders of Sihang Warehouse collectively known?", "ground_truth": "The Eight Hundred Heroes"},
+  {"question": "What was the actual approximate number of Chinese defenders at Sihang Warehouse?", "ground_truth": "Around 414 to 452 soldiers"},
+  {"question": "Across which body of water was Sihang Warehouse located opposite the Shanghai International Settlement?", "ground_truth": "Suzhou Creek"},
+  {"question": "What was the primary strategic objective of defending Sihang Warehouse?", "ground_truth": "To cover the retreat of the main Chinese army and gain international sympathy during the Brussels Conference"},
+  {"question": "Who was the 15-year-old Girl Guide who famously delivered a Republic of China flag to the defenders?", "ground_truth": "Yang Huimin"},
+  {"question": "Where did the Imperial Japanese Army launch a decisive amphibious landing on 5 November 1937 that flanked Chinese positions?", "ground_truth": "Jinshanwei (Hangzhou Bay)"},
+  {"question": "Why did Japanese forces refrain from using heavy artillery or aerial bombing near the south side of Sihang Warehouse?", "ground_truth": "Due to its proximity to the Shanghai International Settlement and nearby gas storage tanks"},
+  {"question": "To where did the surviving defenders of Sihang Warehouse retreat after completing their defense?", "ground_truth": "Shanghai International Settlement (British Concession)"},
+  {"question": "Approximately how many casualties did the Chinese defenders suffer inside Sihang Warehouse during the siege?", "ground_truth": "10 killed and 37 wounded"},
+  {"question": "What international treaty conference in November 1937 was Chiang Kai-shek hoping to influence with the defense?", "ground_truth": "Nine-Power Treaty Conference in Brussels"},
+  {"question": "Following the retreat from Shanghai, to which capital city did Chinese forces withdraw before its eventual fall in December 1937?", "ground_truth": "Nanjing (Nanking)"}
+]
