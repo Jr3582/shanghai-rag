@@ -13,3 +13,6 @@ __pycache__/
 
 # macOS system files
 .DS_Store
+
+# add to .gitignore
+data/*.pdf
