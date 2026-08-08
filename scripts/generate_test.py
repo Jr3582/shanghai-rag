@@ -1,7 +1,8 @@
 import os
 import json
+import numpy as np
 import anthropic
-from sentence_transformers import SentenceTransformer, util
+from fastembed import TextEmbedding
 from rank_bm25 import BM25Okapi
 from dotenv import load_dotenv
 
@@ -17,7 +18,12 @@ def normalize(scores):
         normalized.append(norm)
     return normalized
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
+def cos_sim(query_vector, chunk_vectors):
+    query_norm = query_vector / np.linalg.norm(query_vector)
+    chunk_norms = chunk_vectors / np.linalg.norm(chunk_vectors, axis=1, keepdims=True)
+    return chunk_norms @ query_norm
+
+model = TextEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2", threads=1)
 
 with open("../data/chunks.json", "r") as f:
     data = json.load(f)
@@ -30,7 +36,7 @@ for chunk in data:
 tokenized_docs = [text.split() for text in texts]
 
 bm25 = BM25Okapi(tokenized_docs)
-all_chunk_vectors = model.encode(texts)
+all_chunk_vectors = np.array(list(model.embed(texts, batch_size=8)))
 cache = {}
 def run_pipeline(query):
     if query in cache:
@@ -45,8 +51,8 @@ def run_pipeline(query):
 
     top_3 = sorted(scored_chunks, key=lambda x: x[1], reverse=True)[:3]
 
-    query_vector = model.encode(query)
-    dense_scores = util.cos_sim(query_vector, all_chunk_vectors)[0]
+    query_vector = list(model.embed([query]))[0]
+    dense_scores = cos_sim(query_vector, all_chunk_vectors)
     normalize_dense_scores = normalize(dense_scores)
     normalize_scores = normalize(scores)
     hybrid_score = []
