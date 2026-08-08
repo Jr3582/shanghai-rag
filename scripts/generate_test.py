@@ -1,7 +1,7 @@
 import os
 import json
 import anthropic
-from sentence_transformers import SentenceTransformer, util, CrossEncoder
+from sentence_transformers import SentenceTransformer, util
 from rank_bm25 import BM25Okapi
 from dotenv import load_dotenv
 
@@ -18,7 +18,6 @@ def normalize(scores):
     return normalized
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
-reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
 with open("../data/chunks.json", "r") as f:
     data = json.load(f)
@@ -54,20 +53,11 @@ def run_pipeline(query):
     for d, b in zip(normalize_dense_scores, normalize_scores):
         hybrid_score.append(0.5 * d + 0.5 * b)
     scored_hybrid = list(enumerate(hybrid_score))
-    top_20_hybrid = sorted(scored_hybrid, key=lambda x: x[1], reverse=True)[:20]
-
-    pairs = []
-    for index, chunk in top_20_hybrid:
-        pairs.append([query, texts[index]])
-
-    scores = reranker.predict(pairs)
-    scored_rerank = list(enumerate(scores))
-    top_3_rerank = sorted(scored_rerank, key=lambda x: x[1], reverse=True)[:3]
+    top_3_hybrid = sorted(scored_hybrid, key=lambda x: x[1], reverse=True)[:3]
 
     chunk_texts = []
-    for rank_index, score in top_3_rerank:
-        original_index = top_20_hybrid[rank_index][0]
-        chunk_texts.append(texts[original_index])
+    for index, score in top_3_hybrid:
+        chunk_texts.append(texts[index])
 
     context = "\n\n".join(chunk_texts)
 
