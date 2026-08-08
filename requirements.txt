@@ -1,3 +1,4 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
 aiohappyeyeballs
 aiohttp
 aiosignal
@@ -28,6 +29,7 @@ docstring_parser
 durationpy
 exceptiongroup
 fastapi
+fastembed
 filelock
 flatbuffers
 frozenlist
