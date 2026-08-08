@@ -7,6 +7,8 @@ from slowapi.errors import RateLimitExceeded
 from fastapi import Request
 
 app = FastAPI()
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
 
 class Question(BaseModel):
     query: str
